@@ -1,0 +1,7 @@
+.bus-container {
+  display: flex;
+}
+.link-section ul {
+  display: flex;
+  flex-direction: column;
+}

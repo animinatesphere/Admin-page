@@ -1,0 +1,28 @@
+.nav2-bus {
+  border-bottom: 1px solid rgba(44, 44, 44, 1);
+  background: rgba(25, 26, 25, 1);
+
+  /* height: 4vw; */
+  width: 100%;
+}
+.nav2-logo h1 {
+  font-family: Poppins;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0%;
+  color: rgba(200, 200, 200, 1);
+}
+
+.nav2-chil {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.nav2-last {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  margin-left: -4rem;
+}
