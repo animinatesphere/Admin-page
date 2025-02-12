@@ -4,8 +4,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
   const [formData, setFormData] = useState(
     product || {
       Brand: "",
-      pic: "",
-      Id: 0, // Change from 0 to null
+      pic: "", // Store image URL here
+      Id: null, // Change from 0 to null
       Name: "",
       sku: "",
       quan: "",
@@ -16,24 +16,47 @@ const ProductForm = ({ product, onSave, onCancel }) => {
     }
   );
 
+  // Handle text input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle image selection
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setFormData({ ...formData, pic: imageUrl });
+    }
+  };
+
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.Name || !formData.Brand || !formData.Category) {
       alert("Please fill all required fields!");
       return;
     }
-    onSave({ ...formData, Id: formData.Id || Date.now() }); // Assign unique ID if not set
+    onSave({ ...formData, Id: formData.Id || Date.now() });
   };
 
   return (
     <form onSubmit={handleSubmit} className="product-form">
       <h1 className="product-form-head">Add Product</h1>
+      {/* Image Upload Section */}
+      <div className="form-group">
+        <label>Product Image</label>
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {formData.pic && (
+          <div className="image-preview">
+            <img src={formData.pic} alt="Preview" className="preview-img" />
+          </div>
+        )}
+      </div>
+
       <div className="former">
+        {/* Brand Name */}
         <div className="form-group">
           <label>
             Brand <span>*</span>
@@ -47,6 +70,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             required
           />
         </div>
+
+        {/* Product ID */}
         <div className="form-group">
           <label>
             Product Id<span>*</span>
@@ -59,6 +84,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             readOnly
           />
         </div>
+
+        {/* Product Name */}
         <div className="form-group">
           <label>
             Product Name<span>*</span>
@@ -72,6 +99,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             required
           />
         </div>
+
+        {/* SKU */}
         <div className="form-group">
           <label>
             Stock Keeping Unit (SKU)<span>*</span>
@@ -85,6 +114,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             required
           />
         </div>
+
+        {/* Category */}
         <div className="form-group">
           <label>
             Category<span>*</span>
@@ -98,6 +129,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             required
           />
         </div>
+
+        {/* Quantity */}
         <div className="form-group">
           <label>
             Quantity<span>*</span>
@@ -111,6 +144,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             required
           />
         </div>
+
+        {/* Price */}
         <div className="form-group">
           <label>
             Price<span>*</span>
@@ -124,6 +159,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             required
           />
         </div>
+
+        {/* Location */}
         <div className="form-group">
           <label>
             Location<span>*</span>
@@ -138,6 +175,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
           />
         </div>
       </div>
+
+      {/* Form Actions */}
       <div className="form-actions">
         <button type="button" onClick={onCancel} className="btn1 btn-primary">
           Discard

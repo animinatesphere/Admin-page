@@ -26,6 +26,7 @@ const Product = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleAddProduct = () => {
     setSelectedProduct(null);
@@ -76,7 +77,12 @@ const Product = () => {
               <h1 className="nav3-logo">Products</h1>
               <div className="nav3-input">
                 <img src={group} alt="" className="input-icon" />
-                <input type="text" placeholder="Search.." />
+                <input
+                  type="text"
+                  placeholder="Search.."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
             </div>
             <div className="nav3-right">
@@ -105,45 +111,60 @@ const Product = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <tr
-                key={product.Id}
-                onClick={() => handleViewProduct(product)}
-                style={{ cursor: "pointer" }}
-              >
-                <td>
-                  <img src={res} alt="" />
-                </td>
-                <td>{product.Id}</td>
-                <td>{product.sku}</td>
-                <td>{product.Name}</td>
-                <td>{product.quan}</td>
-                <td>{product.price} Php</td>
-                <td>
-                  <img src={loca} alt="" /> {product.location}
-                </td>
-                <td className="last-ed">
-                  <img
-                    src={vec}
-                    alt=""
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEditProduct(product);
-                    }}
-                    className="btn btn-secondary"
-                  />
-                  <img
-                    src={vec2}
-                    alt=""
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteProduct(product);
-                    }}
-                    className="btn btn-danger"
-                  />
-                </td>
-              </tr>
-            ))}
+            {products
+              .filter(
+                (product) =>
+                  product.Name.toLowerCase().includes(
+                    searchQuery.toLowerCase()
+                  ) ||
+                  product.sku
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase()) ||
+                  product.Id.toString().includes(searchQuery)
+              )
+              .map((product) => (
+                <tr
+                  key={product.Id}
+                  onClick={() => handleViewProduct(product)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <td>
+                    <img
+                      src={product.pic || res}
+                      alt={product.Name}
+                      className="irpot"
+                    />
+                  </td>
+                  <td>{product.Id}</td>
+                  <td>{product.sku}</td>
+                  <td>{product.Name}</td>
+                  <td>{product.quan}</td>
+                  <td>{product.price} Php</td>
+                  <td>
+                    <img src={loca} alt="" /> {product.location}
+                  </td>
+                  <td className="last-ed">
+                    <img
+                      src={vec}
+                      alt=""
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditProduct(product);
+                      }}
+                      className="btn btn-secondary"
+                    />
+                    <img
+                      src={vec2}
+                      alt=""
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteProduct(product);
+                      }}
+                      className="btn btn-danger"
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -160,9 +181,17 @@ const Product = () => {
             onClose={() => setIsDetailModalOpen(false)}
           >
             <div className="detail-parent">
+              {/* Product Image */}
               <div className="details-images">
-                <img src={res2} alt="" />
+                <img
+                  src={selectedProduct?.pic || res} // Use selectedProduct.pic if available, otherwise fallback to res
+                  alt={selectedProduct?.Name || "Product Image"} // Set alt text
+                  className="product-image"
+                  style={{ width: "100%", height: "auto", objectFit: "cover" }} // Adjust styling if needed
+                />
               </div>
+
+              {/* Product Details */}
               <div className="product-details">
                 <h2 className="pro-head">
                   <img src={pack} alt="" /> Product Details
@@ -170,33 +199,35 @@ const Product = () => {
 
                 <p className="warn-pare">
                   <strong className="warn3">Product ID:</strong>
-
-                  <p className="warn-chil"> {selectedProduct?.Id}</p>
+                  <span className="warn-chil"> {selectedProduct?.Id}</span>
                 </p>
                 <p className="warn-pare">
-                  <strong className="warn3">Brand:</strong>{" "}
-                  <p className="warn-chil">{selectedProduct?.Brand || "N/A"}</p>
+                  <strong className="warn3">Brand:</strong>
+                  <span className="warn-chil">
+                    {selectedProduct?.Brand || "N/A"}
+                  </span>
                 </p>
                 <p className="warn-pare">
-                  <strong className="warn3">Product Name:</strong>{" "}
-                  <p className="warn-chil">{selectedProduct?.Name}</p>
+                  <strong className="warn3">Product Name:</strong>
+                  <span className="warn-chil">{selectedProduct?.Name}</span>
                 </p>
                 <p className="warn-pare">
-                  <strong className="warn3">Category:</strong>{" "}
-                  <p className="warn-chil">{selectedProduct?.Category}</p>
+                  <strong className="warn3">Category:</strong>
+                  <span className="warn-chil">{selectedProduct?.Category}</span>
                 </p>
                 <p className="warn-pare">
-                  <strong className="warn3">Price:</strong>{" "}
-                  <p className="warn-chil">{selectedProduct?.price}</p>
-                </p>
-
-                <p className="warn-pare">
-                  <strong className="warn3">Location:</strong>{" "}
-                  <p className="warn-chil">{selectedProduct?.location}</p>
+                  <strong className="warn3">Price:</strong>
+                  <span className="warn-chil">{selectedProduct?.price}</span>
                 </p>
                 <p className="warn-pare">
-                  <strong className="warn3">SKU:</strong>{" "}
-                  <p className="warn-chil">{selectedProduct?.sku || "N/A"}</p>
+                  <strong className="warn3">Location:</strong>
+                  <span className="warn-chil">{selectedProduct?.location}</span>
+                </p>
+                <p className="warn-pare">
+                  <strong className="warn3">SKU:</strong>
+                  <span className="warn-chil">
+                    {selectedProduct?.sku || "N/A"}
+                  </span>
                 </p>
               </div>
             </div>
