@@ -108,6 +108,7 @@ const Product = () => {
               <th>Quantity</th>
               <th>Price</th>
               <th>Location</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>

@@ -5,7 +5,7 @@ const ProductForm = ({ product, onSave, onCancel }) => {
     product || {
       Brand: "",
       pic: "", // Store image URL here
-      Id: null, // Change from 0 to null
+      Id: "", // Change from 0 to null
       Name: "",
       sku: "",
       quan: "",
@@ -77,11 +77,12 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             Product Id<span>*</span>
           </label>
           <input
-            type="text"
+            type="number"
             name="Id"
             placeholder="Id"
-            value={formData.Id || "Auto-Generated"}
-            readOnly
+            value={formData.Id}
+            onChange={handleChange}
+            required
           />
         </div>
 
@@ -109,7 +110,7 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             type="number"
             name="sku"
             placeholder="SKU"
-            value={formData.sku}
+            value={formData.sku || "Auto-Generated"}
             onChange={handleChange}
             required
           />
