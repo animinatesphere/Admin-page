@@ -22,10 +22,13 @@
   text-decoration: none;
   color: rgba(200, 200, 200, 1);
   margin-top: 8rem;
-  margin-left: 5rem;
+  margin-left: 4rem;
   list-style: none;
 }
 a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   text-decoration: none;
   color: rgba(200, 200, 200, 1);
 }
@@ -33,12 +36,15 @@ a.active-link {
   display: inline-block; /* Or 'block' for full-width links */
   background: rgba(44, 44, 44, 1);
   color: #fff; /* Text color for better contrast */
-  width: 70%; /* Adjust the width as per your design */
+  width: 90%; /* Adjust the width as per your design */
   height: 40px; /* Set your desired height */
   line-height: 40px; /* Aligns text vertically when using height */
   border-radius: 8px; /* Optional: Add rounded corners */
   padding: 0.5rem;
   transition: background-color 0.3s ease; /* Smooth transition */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo-im h1 {
@@ -49,5 +55,5 @@ a.active-link {
   letter-spacing: 0%;
   color: rgba(200, 200, 200, 1);
   margin-left: 5rem;
-  padding-top: 4rem;
+  padding-top: 6rem;
 }

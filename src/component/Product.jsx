@@ -142,7 +142,8 @@ const Product = () => {
                   <td>{product.quan}</td>
                   <td>{product.price} Php</td>
                   <td>
-                    <img src={loca} alt="" /> {product.location}
+                    <img src={loca} alt="" className="loca" />{" "}
+                    {product.location}
                   </td>
                   <td className="last-ed">
                     <img
@@ -188,7 +189,7 @@ const Product = () => {
                   src={selectedProduct?.pic || res} // Use selectedProduct.pic if available, otherwise fallback to res
                   alt={selectedProduct?.Name || "Product Image"} // Set alt text
                   className="product-image"
-                  style={{ width: "100%", height: "auto", objectFit: "cover" }} // Adjust styling if needed
+                  // style={{ width: "100%", height: "auto", objectFit: "cover" }} // Adjust styling if needed
                 />
               </div>
 
@@ -197,39 +198,45 @@ const Product = () => {
                 <h2 className="pro-head">
                   <img src={pack} alt="" /> Product Details
                 </h2>
+                <div className="product-de">
+                  <p className="warn-pare">
+                    <strong className="warn3">Product ID:</strong>
+                    <span className="warn-chil"> {selectedProduct?.Id}</span>
+                  </p>
+                  <p className="warn-pare">
+                    <strong className="warn3">Brand:</strong>
+                    <span className="warn-chil">
+                      {selectedProduct?.Brand || "N/A"}
+                    </span>
+                  </p>
 
-                <p className="warn-pare">
-                  <strong className="warn3">Product ID:</strong>
-                  <span className="warn-chil"> {selectedProduct?.Id}</span>
-                </p>
-                <p className="warn-pare">
-                  <strong className="warn3">Brand:</strong>
-                  <span className="warn-chil">
-                    {selectedProduct?.Brand || "N/A"}
-                  </span>
-                </p>
-                <p className="warn-pare">
-                  <strong className="warn3">Product Name:</strong>
-                  <span className="warn-chil">{selectedProduct?.Name}</span>
-                </p>
-                <p className="warn-pare">
-                  <strong className="warn3">Category:</strong>
-                  <span className="warn-chil">{selectedProduct?.Category}</span>
-                </p>
-                <p className="warn-pare">
-                  <strong className="warn3">Price:</strong>
-                  <span className="warn-chil">{selectedProduct?.price}</span>
-                </p>
-                <p className="warn-pare">
-                  <strong className="warn3">Location:</strong>
-                  <span className="warn-chil">{selectedProduct?.location}</span>
-                </p>
-                <p className="warn-pare">
-                  <strong className="warn3">SKU:</strong>
-                  <span className="warn-chil">
-                    {selectedProduct?.sku || "N/A"}
-                  </span>
-                </p>
+                  <p className="warn-pare">
+                    <strong className="warn3">ProductName:</strong>
+                    <span className="warn-chil">{selectedProduct?.Name}</span>
+                  </p>
+                  <p className="warn-pare">
+                    <strong className="warn3">Category:</strong>
+                    <span className="warn-chil">
+                      {selectedProduct?.Category}
+                    </span>
+                  </p>
+                  <p className="warn-pare">
+                    <strong className="warn3">Price:</strong>
+                    <span className="warn-chil">{selectedProduct?.price}</span>
+                  </p>
+                  <p className="warn-pare">
+                    <strong className="warn3">Location:</strong>
+                    <span className="warn-chil">
+                      {selectedProduct?.location}
+                    </span>
+                  </p>
+                  <p className="warn-pare">
+                    <strong className="warn3">SKU:</strong>
+                    <span className="warn-chil">
+                      {selectedProduct?.sku || "N/A"}
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
           </Modal>
@@ -244,40 +251,42 @@ const Product = () => {
               <h2 className="warn">
                 <img src={warn} alt="" /> DELETE CONFIRMATION
               </h2>
-              <p className="warn2">
-                Are you sure you want to delete this product?
-              </p>
-              <p className="warn-pare">
-                <strong className="warn3">Product ID:</strong>
-                <p className="warn-chil">{productToDelete?.Id}</p>
-              </p>
-              <p className="warn-pare">
-                <strong className="warn3">Brand:</strong>
-                <p className="warn-chil">{productToDelete?.Brand}</p>
-              </p>
-              <p className="warn-pare">
-                <strong className="warn3">Product Name:</strong>
-                <p className="warn-chil">{productToDelete?.Name || "N/A"}</p>
-              </p>
-              <p className="warn-pare">
-                <strong className="warn3">Category:</strong>
-                <p className="warn-chil">
-                  {productToDelete?.Category || "N/A"}
+              <div className="delete-up">
+                <p className="warn2">
+                  Are you sure you want to delete this product?
                 </p>
-              </p>
-              <div className="modal-buttons">
-                <button
-                  className="btnw btn-secondary"
-                  onClick={() => setIsDeleteModalOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="btne btn-danger"
-                  onClick={confirmDeleteProduct}
-                >
-                  Delete
-                </button>
+                <p className="warn-pare">
+                  <strong className="warn3">Product ID:</strong>
+                  <p className="warn-chil">{productToDelete?.Id}</p>
+                </p>
+                <p className="warn-pare">
+                  <strong className="warn3">Brand:</strong>
+                  <p className="warn-chil">{productToDelete?.Brand}</p>
+                </p>
+                <p className="warn-pare">
+                  <strong className="warn3">ProductName:</strong>
+                  <p className="warn-chil">{productToDelete?.Name || "N/A"}</p>
+                </p>
+                <p className="warn-pare">
+                  <strong className="warn3">Category:</strong>
+                  <p className="warn-chil">
+                    {productToDelete?.Category || "N/A"}
+                  </p>
+                </p>
+                <div className="modal-buttons">
+                  <button
+                    className="btnw btn-secondary"
+                    onClick={() => setIsDeleteModalOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btne btn-danger"
+                    onClick={confirmDeleteProduct}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </Modal>
